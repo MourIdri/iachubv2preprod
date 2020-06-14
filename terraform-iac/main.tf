@@ -27,7 +27,7 @@ module "rg" {
     projectowner="it_transverse_cloud_team"
   }
 }
-
+#CI Validated so far 
 module "logging" {
   source               = "./modules/logging"
   current-name-convention-core-public-module = "${var.current-name-convention-core-public-main}"
@@ -54,6 +54,7 @@ module "logging" {
     projectowner="it_transverse_cloud_team"}
   logacc_depend_on_module = [module.rg ]
 }
+#CI Validated so far 
 module "network" {
   source               = "./modules/network"
   current-name-convention-core-public-module = "${var.current-name-convention-core-public-main}"
@@ -69,5 +70,5 @@ module "network" {
     business_location="corpc"
     projectowner="it_transverse_cloud_team"}
   ip-range-module = "${var.current-vnet-space}"
-  vnet_depend_on_module = [module.rg ]
+  vnet_depend_on_module = [module.rg]
 }
