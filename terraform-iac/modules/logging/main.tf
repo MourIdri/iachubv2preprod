@@ -44,7 +44,7 @@ resource "azurerm_key_vault" "current_key_vault" {
   sku_name = "standard"
   access_policy {
     tenant_id = "${var.current-az-sp-tenant-id-module}"
-    object_id = "${data.current-az-sp-object-id-module}"
+    object_id = "${var.current-az-sp-object-id-module}"
     key_permissions = [
       "get",
       "list",
