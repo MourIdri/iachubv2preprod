@@ -3,23 +3,22 @@
 ############################
 # Add you service endpoint access strings
 
-variable "azure-client-app-id" {
-    type        = any
-    description="The Client ID of the Service Principal."
-}
-variable "azure-subscription-id" {
-    type        = any
-    description="The ID of the Azure Subscription in which to run the Acceptance Tests."
-}
-variable "azure-client-secret-password" {
-    type        = any
-    description="The Client Secret associated with the Service Principal."
-}
-
-variable "azure-tenant-id" {
-    type        = any
-    description="The Tenant ID to use."
-}
+#variable "azure-client-app-id" {
+#    type        = any
+#    description="The Client ID of the Service Principal."
+#}
+#variable "azure-subscription-id" {
+#    type        = any
+#    description="The ID of the Azure Subscription in which to run the Acceptance Tests."
+#}
+#variable "azure-client-secret-password" {
+#    type        = any
+#    description="The Client Secret associated with the Service Principal."
+#}
+#variable "azure-tenant-id" {
+#    type        = any
+#    description="The Tenant ID to use."
+#}
 ############################
 # GENERAL TENANT VARIABLES #
 ############################
