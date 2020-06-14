@@ -1,0 +1,5 @@
+---
+- name: main common task
+  include_role:
+    name: common_role
+    tasks_from: enable_rdp
