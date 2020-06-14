@@ -41,6 +41,14 @@ variable "current-name-convention-core-public-main" {
   description = "Every PUBLIC accesed and resolved ressources has a core model crcprdshrhubstolog "
   default     = "ccppdhb"
 }
+############################
+# GENERAL NETWRK VARIABLES #
+############################
+variable "current-vnet-space" {
+  description = "defining the vnetspace using a variable"
+  type = any
+}
+
 #LOGIN PASSWORDS
 variable "genericusername" {
   description = "Username for Virtual Machines"

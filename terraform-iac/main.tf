@@ -54,3 +54,20 @@ module "logging" {
     projectowner="it_transverse_cloud_team"}
   logacc_depend_on_module = [module.rg ]
 }
+module "network" {
+  source               = "./modules/network"
+  current-name-convention-core-public-module = "${var.current-name-convention-core-public-main}"
+  current-name-convention-core-module  = "${var.current-name-convention-core-main}"
+  preferred-location-module = "${var.preferred-location-main}"
+  tags-vnet-module = {
+    environment = "production"
+    scope_1="shared_infrastructure"
+    scope_2="core_infrastructure"
+    type_1="network_security"
+    type_2="network"
+    lob="it_infrastructure"
+    business_location="corpc"
+    projectowner="it_transverse_cloud_team"}
+  ip-range-module = "${var.current-vnet-space}"
+  vnet_depend_on_module = [module.rg ]
+}
