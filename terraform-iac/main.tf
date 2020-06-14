@@ -72,3 +72,31 @@ module "network" {
   ip-range-module = "${var.current-vnet-space}"
   vnet_depend_on_module = [module.rg]
 }
+#CI Validated so far 
+# ROUTING & ADMIN PART :
+module "subnet-nsg-privatedmzin" {
+  current-name-convention-core-public-module = "${var.current-name-convention-core-public-main}"
+  current-name-convention-core-module  = "${var.current-name-convention-core-main}"
+  preferred-location-module = "${var.preferred-location-main}"  
+  source               = "./modules/generic-subnet-nsg"
+  #root-name-subnet-module = "privatedmzin"
+  root-name-subnet-module = "${var.privatedmzin-root-name}"  
+  #iprange-subnet-module = "10.255.254.32/28"
+  iprange-subnet-module = "${var.subnet-privatedmzin}" 
+  #portrange-subnet-module =  ["21-4950"]
+  portrange-subnet-module =  ["${var.nsg-privatedmzin}"]
+  subnet_depend_on_module = [module.network]
+}
+module "subnet-nsg-privatedmzoutlan" {
+  current-name-convention-core-public-module = "${var.current-name-convention-core-public-main}"
+  current-name-convention-core-module  = "${var.current-name-convention-core-main}"
+  preferred-location-module = "${var.preferred-location-main}"  
+  source               = "./modules/generic-subnet-nsg"
+  #root-name-subnet-module = "privatedmzoutlan"
+  root-name-subnet-module = "${var.privatedmzoutlan-root-name}"  
+  #iprange-subnet-module = "10.255.254.48/28"
+  iprange-subnet-module = "${var.subnet-privatedmzoutlan}"  
+  #portrange-subnet-module =  ["21-4950"]
+  portrange-subnet-module =  ["${var.nsg-privatedmzoutlan}"]  
+  subnet_depend_on_module = [module.network]
+}

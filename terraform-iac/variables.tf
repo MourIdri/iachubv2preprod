@@ -48,6 +48,30 @@ variable "current-vnet-space" {
   description = "defining the vnetspace using a variable"
   type = any
 }
+variable "privatedmzin-root-name" {
+  description = "defining the privatedmzin  using a variable"
+  type = any
+}
+variable "subnet-privatedmzin" {
+  description = "defining the subnet space for privatedmzin  using a variable"
+  type = any
+}
+variable "nsg-privatedmzin" {
+  description = "defining the nsg port range space for privatedmzin  using a variable"
+  type = any
+}
+variable "privatedmzoutlan-root-name" {
+  description = "defining the privatedmzoutlan  using a variable"
+  type = any
+}
+variable "subnet-privatedmzoutlan" {
+  description = "defining the subnet space for privatedmzoutlan  using a variable"
+  type = any
+}
+variable "nsg-privatedmzoutlan" {
+  description = "defining the nsg port range space for privatedmzoutlan  using a variable"
+  type = any
+}
 
 #LOGIN PASSWORDS
 variable "genericusername" {
