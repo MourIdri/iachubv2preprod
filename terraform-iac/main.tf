@@ -27,12 +27,15 @@ module "rg" {
     projectowner="it_transverse_cloud_team"
   }
 }
+
 #CI Validated so far 
 module "logging" {
   source               = "./modules/logging"
   current-name-convention-core-public-module = "${var.current-name-convention-core-public-main}"
   current-name-convention-core-module  = "${var.current-name-convention-core-main}"
   preferred-location-module = "${var.preferred-location-main}"
+  current-az-sp-object-id-module = data.azurerm_client_config.current.object_id
+  current-az-sp-tenant-id-module = data.azurerm_client_config.current.tenant_id
   tags-sto-logging-module = {
     environment = "production"
     scope_1="shared_infrastructure"

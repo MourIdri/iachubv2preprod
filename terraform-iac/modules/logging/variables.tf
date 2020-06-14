@@ -25,6 +25,16 @@ variable "preferred-tier-storage-module" {
   description = "Every ressources has a core model crpc-prod-shar-hub-subnet-publicdmzin "
   default     = "Standard"
 }
+variable "current-az-sp-object-id-module" {
+  description = "passing some values of current Service principal for keyvault  "
+  type     = any
+}
+variable "current-az-sp-tenant-id-module" {
+  description = "passing some values of current Service principal for keyvault  "
+  type     = any
+}
+
+
 
 variable "preferred-tier-storage-replication-module" {
   description = "Every ressources has a core model crpc-prod-shar-hub-subnet-publicdmzin "

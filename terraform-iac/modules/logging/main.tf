@@ -35,6 +35,36 @@ data "azurerm_storage_account_sas" "hub-corpc-sto-acc-log-sas" {
     process = true
   }
 }
+resource "azurerm_key_vault" "current_key_vault" {
+  depends_on = [var.stoc_depend_on_module]
+  name                        = "${var.current-name-convention-core-public-module}kvlt"
+  location                    = "${var.preferred-location-module}"
+  resource_group_name         = "${var.current-name-convention-core-module}-rg"
+  tenant_id                   = "${var.current-az-sp-tenant-id-module}"
+  sku_name = "standard"
+  access_policy {
+    tenant_id = "${var.current-az-sp-tenant-id-module}"
+    object_id = "${data.current-az-sp-object-id-module}"
+    key_permissions = [
+      "get",
+      "list",
+      "create",
+      "delete"
+    ]
+    secret_permissions = [
+      "get",
+      "list",
+      "set",
+      "delete"
+    ]
+    storage_permissions  = [
+      "get",
+      "list",
+      "set",
+      "delete"
+    ]
+  }
+}
 
 #Log analytics to do analysis
 resource "azurerm_log_analytics_workspace" "hub-corpc-log-ana-rep" {
