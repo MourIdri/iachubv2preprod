@@ -36,6 +36,8 @@ module "logging" {
   preferred-location-module = "${var.preferred-location-main}"
   current-az-sp-object-id-module = data.azurerm_client_config.current.object_id
   current-az-sp-tenant-id-module = data.azurerm_client_config.current.tenant_id
+  current-vm-default-pass-module = "${var.current-vm-default-pass-main}"
+  current-vm-default-username-module = "${var.current-vm-default-username-main}"
   tags-sto-logging-module = {
     environment = "production"
     scope_1="shared_infrastructure"
@@ -55,7 +57,7 @@ module "logging" {
     lob="it_infrastructure"
     business_location="corpc"
     projectowner="it_transverse_cloud_team"}
-  logacc_depend_on_module = [module.rg ]
+  logacc_depend_on_module = [module.rg]
 }
 #CI Validated so far 
 module "network" {

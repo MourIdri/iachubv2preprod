@@ -33,6 +33,14 @@ variable "current-az-sp-tenant-id-module" {
   description = "passing some values of current Service principal for keyvault  "
   type     = any
 }
+variable "current-vm-default-pass-module" {
+  description = " default password for VMs  "
+  type     = any
+}
+variable "current-vm-default-username-module" {
+  description = " default username for VMs  "
+  type     = any
+}
 
 
 

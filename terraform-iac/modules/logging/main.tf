@@ -42,6 +42,7 @@ resource "azurerm_key_vault" "current_key_vault" {
   resource_group_name         = "${var.current-name-convention-core-module}-rg"
   tenant_id                   = "${var.current-az-sp-tenant-id-module}"
   sku_name = "standard"
+  tags = "${var.tags-repo-logging-module}"
   access_policy {
     tenant_id = "${var.current-az-sp-tenant-id-module}"
     object_id = "${var.current-az-sp-object-id-module}"
@@ -64,6 +65,16 @@ resource "azurerm_key_vault" "current_key_vault" {
       "delete"
     ]
   }
+}
+resource "azurerm_key_vault_secret" "current_key_vault_vm_def_password" {
+  name                        = "current-vm-default-pass-main"
+  value                       = "${var.current-vm-default-pass-module}"
+  key_vault_id = azurerm_key_vault.current_key_vault.id
+}
+resource "azurerm_key_vault_secret" "current_key_vault_vm_def_username" {
+  name                        = "current-vm-default-username-main"
+  value                       = "${var.current-vm-default-username-module}"
+  key_vault_id = azurerm_key_vault.current_key_vault.id
 }
 
 #Log analytics to do analysis

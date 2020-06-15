@@ -73,6 +73,9 @@ variable "nsg-privatedmzoutlan" {
   type = any
 }
 
+
+
+
 #LOGIN PASSWORDS
 variable "genericusername" {
   description = "Username for Virtual Machines"
@@ -82,6 +85,17 @@ variable "genericpassword" {
   description = "Password for Virtual Machines"
   default     = "M0nP@ssw0rd!"
 }
+variable "current-vm-default-username-main" {
+  description = "Username for Virtual Machines"
+  type = any 
+}
+variable "current-vm-default-pass-main" {
+  description = "Password for Virtual Machines"
+  type = any 
+}
+
+
+
 #INSTANCE CATALOGUE 
 variable "vmsize_small_1_2" {
   description = "Size of the VMs"
