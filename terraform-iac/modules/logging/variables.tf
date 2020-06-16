@@ -42,8 +42,6 @@ variable "current-vm-default-username-module" {
   type     = any
 }
 
-
-
 variable "preferred-tier-storage-replication-module" {
   description = "Every ressources has a core model crpc-prod-shar-hub-subnet-publicdmzin "
   default     = "LRS"
