@@ -271,10 +271,13 @@ module "waf-public-dmz" {
     type_1="network_security"
     type_2="waf"
     lob="it_infrastructure"
-    business_location="corpc"
+    business_location="corph"
     projectowner="it_transverse_cloud_team"
   }
 
+
+
+#VPN PART 
 #VPN PART 
 module "subnet-nsg-vpn" {
   current-name-convention-core-public-module = "${var.current-name-convention-core-public-main}"
