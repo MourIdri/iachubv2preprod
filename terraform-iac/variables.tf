@@ -92,7 +92,15 @@ variable "subnet-mt" {
   description = "root name for mgmt windows  "
   type = any
 }
-variable "nsg-mt" {
+variable "nsg-mt-1" {
+  description = "root name for mgmt windows  "
+  type = any
+}
+variable "nsg-mt-2" {
+  description = "root name for mgmt windows  "
+  type = any
+}
+variable "nsg-mt-3" {
   description = "root name for mgmt windows  "
   type = any
 }
