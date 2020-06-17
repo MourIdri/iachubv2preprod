@@ -72,6 +72,54 @@ variable "nsg-privatedmzoutlan" {
   description = "defining the nsg port range space for privatedmzoutlan  using a variable"
   type = any
 }
+variable "mt-area-dc-dns-private-ip-address" {
+  description = "IP Address for private DC DNS "
+  type = any
+}
+variable "security-appliance-dmz-private-ip-address-out" {
+  description = "IP Address for OUT private sec appliance "
+  type = any
+}
+variable "security-appliance-dmz-private-ip-address-in" {
+  description = "IP Address for INT private sec appliance "
+  type = any
+}
+variable "mt-root-name" {
+  description = "root name for mgmt windows  "
+  type = any
+}
+variable "subnet-mt" {
+  description = "root name for mgmt windows  "
+  type = any
+}
+variable "nsg-mt" {
+  description = "root name for mgmt windows  "
+  type = any
+}
+variable "mt-vm-private-ip-address" {
+  description = "root name for mgmt windows  "
+  type = any
+}
+variable "mtl-vm-private-ip-address" {
+  description = "root name for mgmt windows  "
+  type = any
+}
+variable "publicdmzin-root-name" {
+  description = "root name for mgmt windows  "
+  type = any
+}
+variable "subnet-publicdmzin" {
+  description = "root name for mgmt windows  "
+  type = any
+}
+variable "nsg-publicdmzin" {
+  description = "root name for mgmt windows  "
+  type = any
+}
+
+
+
+
 
 
 

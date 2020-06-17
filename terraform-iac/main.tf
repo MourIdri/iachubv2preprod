@@ -105,3 +105,146 @@ module "subnet-nsg-privatedmzoutlan" {
   portrange-subnet-module =  ["${var.nsg-privatedmzoutlan}"]  
   subnet_depend_on_module = [module.network]
 }
+module "mt-area-mgmt" {
+  current-name-convention-core-public-module = "${var.current-name-convention-core-public-main}"
+  current-name-convention-core-module  = "${var.current-name-convention-core-main}"
+  preferred-location-module = "${var.preferred-location-main}"  
+  source               = "./modules/vm-win-pri"
+  subnet_in_id_module = "${module.subnet-nsg-privatedmzoutlan.subnet-iac-id}"
+  #ip-in-dcaddns-module = "10.255.255.53"
+  ip-in-dcaddns-module = "${var.mt-area-dc-dns-private-ip-address}" 
+  dcaddns-size ="${var.vmsize_small_1_2}"
+  dcaddns-login = "${var.current-vm-default-username-main}"
+  dcaddns-passwd = "${var.current-vm-default-pass-main}"
+  stor-log-repo = "${module.logging.hub-corpc-sto-acc-log-endpoint}"
+  stor-log-ws-crd-1 = "${module.logging.hub-corpc-log-ana-rep-primary-workspace-id}"
+  stor-log-ws-crd-2 = "${module.logging.hub-corpc-log-ana-rep-primary-key}"
+  dcaddns_depend_on = [module.subnet-nsg-privatedmzoutlan]
+  tags-dcaddns-win-module = {
+    environment = "production"
+    scope_1="shared_infrastructure"
+    scope_2="core_infrastructure"
+    type_1="domain_identity"
+    type_2="ad_dc_dns"
+    lob="it_infrastructure"
+    business_location="corpc"
+    projectowner="it_transverse_cloud_team"
+  }
+}
+
+module "security-appliance-dmz" {
+  current-name-convention-core-public-module = "${var.current-name-convention-core-public-main}"
+  current-name-convention-core-module  = "${var.current-name-convention-core-main}"
+  preferred-location-module = "${var.preferred-location-main}"  
+  source               = "./modules/security-appliance-lnx"
+  subnet_in_id_module = "${module.subnet-nsg-privatedmzin.subnet-iac-id}"
+  subnet_out_id_module = "${module.subnet-nsg-privatedmzoutlan.subnet-iac-id}"
+  #ip-in-nva-module = "10.255.255.36"
+  ip-in-nva-module = "${var.security-appliance-dmz-private-ip-address-in}" 
+  #ip-out-nva-module = "10.255.255.52"
+  ip-out-nva-module = "${var.security-appliance-dmz-private-ip-address-out}" 
+  nva-size ="${var.vmsize_small_1_2}"
+  nva-login = "${var.current-vm-default-username-main}"
+  nva-passwd = "${var.current-vm-default-pass-main}"
+  stor-log-repo = "${module.logging.hub-corpc-sto-acc-log-endpoint}"
+  stor-log-repo-name = "${module.logging.hub-corpc-sto-acc-log-name}"
+  stor-log-repo-sas = "${module.logging.hub-corpc-sto-acc-log-sas-url-string}"
+  ev-hb-log-id = "${module.logging.hub-corpc-ev-hb-1-id}" 
+  ev-hb-log-pri-conx-string = "${module.logging.hub-corpc-ev-hb-1-pri-conx-string}" 
+  ev-hb-log-pri-conx-key = "${module.logging.hub-corpc-ev-hb-1-pri-conx-key}" 
+  stor-log-ws-crd-1 = "${module.logging.hub-corpc-log-ana-rep-primary-workspace-id}"
+  stor-log-ws-crd-2 = "${module.logging.hub-corpc-log-ana-rep-primary-key}"  
+  security_appliance_depend_on = [module.subnet-nsg-privatedmzoutlan,module.subnet-nsg-privatedmzin]
+  tags-security-appliance-dmz-module = {
+    environment = "production"
+    scope_1="shared_infrastructure"
+    scope_2="core_infrastructure"
+    type_1="network_security"
+    type_2="router"
+    lob="it_infrastructure"
+    business_location="corpc"
+    projectowner="it_transverse_cloud_team"
+  }
+}
+#MANAGEMENT PART 
+module "subnet-nsg-mt" {
+  current-name-convention-core-public-module = "${var.current-name-convention-core-public-main}"
+  current-name-convention-core-module  = "${var.current-name-convention-core-main}"
+  preferred-location-module = "${var.preferred-location-main}"  
+  source               = "./modules/generic-subnet-nsg"
+  #root-name-subnet-module = "mt"
+  root-name-subnet-module = "${var.mt-root-name}"  
+  iprange-subnet-module = "${var.subnet-mt}"  
+  #iprange-subnet-module = "10.255.255.16/28"
+  #portrange-subnet-module =  ["3389","443","22"]
+  portrange-subnet-module =  "${var.nsg-mt}" 
+  subnet_depend_on_module = [module.network]
+}
+module "mt-area-1" {
+  current-name-convention-core-public-module = "${var.current-name-convention-core-public-main}"
+  current-name-convention-core-module  = "${var.current-name-convention-core-main}"
+  preferred-location-module = "${var.preferred-location-main}"  
+  source               = "./modules/vm-win-pub"
+  subnet_in_id_module = "${module.subnet-nsg-mt.subnet-iac-id}"
+  #ip-in-mt-module = "10.255.255.20"
+  ip-in-mt-module = "${var.mt-vm-private-ip-address}" 
+  mt-size ="${var.vmsize_small_1_2}"
+  mt-login = "${var.current-vm-default-username-main}"
+  mt-passwd = "${var.current-vm-default-pass-main}"
+  stor-log-repo = "${module.logging.hub-corpc-sto-acc-log-endpoint}"
+  mt_depend_on = [module.subnet-nsg-mt]
+  stor-log-ws-crd-1 = "${module.logging.hub-corpc-log-ana-rep-primary-workspace-id}"
+  stor-log-ws-crd-2 = "${module.logging.hub-corpc-log-ana-rep-primary-key}"
+  tags-mt-win-module = {
+    environment = "production"
+    scope_1="shared_infrastructure"
+    scope_2="core_infrastructure"
+    type_1="network_security"
+    type_2="jumphost"
+    lob="it_infrastructure"
+    business_location="corpc"
+    projectowner="it_transverse_cloud_team"
+  }
+}
+module "mtl-area-1" {
+  current-name-convention-core-public-module = "${var.current-name-convention-core-public-main}"
+  current-name-convention-core-module  = "${var.current-name-convention-core-main}"
+  preferred-location-module = "${var.preferred-location-main}"  
+  source               = "./modules/vm-lnx-pri"
+  subnet_in_id_module = "${module.subnet-nsg-mt.subnet-iac-id}"
+  #ip-in-mtl-module = "10.255.255.21"
+  ip-in-mtl-module = "${var.mtl-vm-private-ip-address}" 
+  mtl-size ="${var.vmsize_small_1_2}"
+  mtl-login = "${var.current-vm-default-username-main}"
+  mtl-passwd = "${var.current-vm-default-pass-main}"
+  stor-log-repo = "${module.logging.hub-corpc-sto-acc-log-endpoint}"
+  stor-log-repo-name = "${module.logging.hub-corpc-sto-acc-log-name}"
+  stor-log-repo-sas = "${module.logging.hub-corpc-sto-acc-log-sas-url-string}"
+  stor-log-ws-crd-1 = "${module.logging.hub-corpc-log-ana-rep-primary-workspace-id}"
+  stor-log-ws-crd-2 = "${module.logging.hub-corpc-log-ana-rep-primary-key}"  
+  mtl_depend_on = [module.subnet-nsg-mt]
+  tags-mtl-lnx-module = {
+    environment = "production"
+    scope_1="shared_infrastructure"
+    scope_2="core_infrastructure"
+    type_1="network_security"
+    type_2="adminlnx"
+    lob="it_infrastructure"
+    business_location="corpc"
+    projectowner="it_transverse_cloud_team"
+  }
+}
+#WEB PART 
+module "subnet-nsg-publicdmzin" {
+  current-name-convention-core-public-module = "${var.current-name-convention-core-public-main}"
+  current-name-convention-core-module  = "${var.current-name-convention-core-main}"
+  preferred-location-module = "${var.preferred-location-main}"  
+  source               = "./modules/generic-subnet-nsg"
+  #root-name-subnet-module = "publicdmzin"
+  root-name-subnet-module = "${var.publicdmzin-root-name}"  
+  #iprange-subnet-module = "10.255.255.64/28"
+  iprange-subnet-module = "${var.subnet-publicdmzin}"  
+  #portrange-subnet-module =  ["443","80"]
+  portrange-subnet-module =  "${var.nsg-publicdmzin}"
+  subnet_depend_on_module = [module.network]
+}
