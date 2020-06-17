@@ -248,3 +248,79 @@ module "subnet-nsg-publicdmzin" {
   portrange-subnet-module =  ["${var.nsg-publicdmzin-1}","${var.nsg-publicdmzin-2}"]
   subnet_depend_on_module = [module.network]
 }
+module "waf-public-dmz" {
+  current-name-convention-core-public-module = "${var.current-name-convention-core-public-main}"
+  current-name-convention-core-module  = "${var.current-name-convention-core-main}"
+  preferred-location-module = "${var.preferred-location-main}"  
+  source               = "./modules/waf-lnx"
+  subnet_in_id_module = "${module.subnet-nsg-publicdmzin.subnet-iac-id}"
+  #ip-in-waf-module = "10.255.254.68"
+  ip-in-waf-module = "${var.waf-vm-private-ip-address}" 
+  waf-size ="${var.vmsize_small_1_2}"
+  waf-login = "${var.current-vm-default-username-main}"
+  waf-passwd = "${var.current-vm-default-pass-main}"
+  stor-log-repo = "${module.logging.hub-corpc-sto-acc-log-endpoint}"
+  stor-log-repo-name = "${module.logging.hub-corpc-sto-acc-log-name}"
+  stor-log-repo-sas = "${module.logging.hub-corpc-sto-acc-log-sas-url-string}"
+  stor-log-ws-crd-1 = "${module.logging.hub-corpc-log-ana-rep-primary-workspace-id}"
+  stor-log-ws-crd-2 = "${module.logging.hub-corpc-log-ana-rep-primary-key}"  
+  waf_depend_on = [module.subnet-nsg-privatedmzoutlan]
+  tags-waf-public-dmz-module = {
+    environment = "production"
+    scope_1="shared_infrastructure"
+    scope_2="core_infrastructure"
+    type_1="network_security"
+    type_2="waf"
+    lob="it_infrastructure"
+    business_location="corpc"
+    projectowner="it_transverse_cloud_team"
+  }
+
+#VPN PART 
+module "subnet-nsg-vpn" {
+  current-name-convention-core-public-module = "${var.current-name-convention-core-public-main}"
+  current-name-convention-core-module  = "${var.current-name-convention-core-main}"
+  preferred-location-module = "${var.preferred-location-main}"    
+  source               = "./modules/vpn-subnet-nsg"
+  #root-name-subnet-module = "GatewaySubnet"
+  root-name-subnet-module = "${var.GatewaySubnet-root-name}"  
+  #iprange-subnet-module = "10.255.254.0/28"
+  iprange-subnet-module = "${var.subnet-GatewaySubnet}"  
+  #portrange-subnet-module =  ["50","500","443","4500"]
+  portrange-subnet-module =   ["${var.nsg-GatewaySubnet-1}","${var.nsg-GatewaySubnet-2}","${var.nsg-GatewaySubnet-3}","${var.nsg-GatewaySubnet-4}"]
+  subnet_depend_on_module = [module.network]
+}
+
+module "vpn-standard-connect" {
+  current-name-convention-core-public-module = "${var.current-name-convention-core-public-main}"
+  current-name-convention-core-module  = "${var.current-name-convention-core-main}"
+  preferred-location-module = "${var.preferred-location-main}"    
+  source               = "./modules/vpn-onprem-cloud"
+  #iprange-onprem-module = ["10.0.1.96/28"]
+  iprange-onprem-module = ["${var.iprange-onprem-vpn}"]
+  #ipaddress-routeur-onprem-1-module = "40.89.184.82"
+  ipaddress-routeur-onprem-1-module = "${var.ipaddress-routeur-onprem-1-azuredevops}"
+  subnet-vpn-target-id-module = "${module.subnet-nsg-vpn.subnet-iac-id}"
+  corph-s2s-connection-pass = "${var.current-vm-default-pass-main}"
+  vpn_gw_depend_on = [module.subnet-nsg-vpn]
+  tags-vpn-standard-connect-module = {
+    environment = "production"
+    scope_1="shared_infrastructure"
+    scope_2="core_infrastructure"
+    type_1="network_security"
+    type_2="vpn"
+    lob="it_infrastructure"
+    business_location="corpc"
+    projectowner="it_transverse_cloud_team"
+  }
+  tags-onprem-1-standard-connect-module = {
+    environment = "production"
+    scope_1="shared_infrastructure"
+    scope_2="core_infrastructure"
+    type_1="network_security"
+    type_2="router"
+    lob="it_infrastructure"
+    business_location="corph"
+    projectowner="it_transverse_cloud_team"
+  }
+}

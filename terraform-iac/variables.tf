@@ -128,6 +128,43 @@ variable "nsg-publicdmzin-2" {
   description = "root name for mgmt windows  "
   type = any
 }
+variable "waf-vm-private-ip-address" {
+  description = "root name for mgmt windows  "
+  type = any
+}
+variable "GatewaySubnet-root-name" {
+  description = "root name for mgmt windows  "
+  type = any
+}
+variable "subnet-GatewaySubnet" {
+  description = "root name for mgmt windows  "
+  type = any
+}
+variable "nsg-GatewaySubnet-1" {
+  description = "root name for mgmt windows  "
+  type = any
+}
+variable "nsg-GatewaySubnet-2" {
+  description = "root name for mgmt windows  "
+  type = any
+}
+variable "nsg-GatewaySubnet-3" {
+  description = "root name for mgmt windows  "
+  type = any
+}
+variable "nsg-GatewaySubnet-4" {
+  description = "root name for mgmt windows  "
+  type = any
+}
+variable "iprange-onprem-vpn" {
+  description = "root name for mgmt windows  "
+  type = any
+}
+variable "ipaddress-routeur-onprem-1-azuredevops" {
+  description = "root name for mgmt windows  "
+  type = any
+}
+
 
 
 
