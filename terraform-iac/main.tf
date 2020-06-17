@@ -263,7 +263,7 @@ module "waf-public-dmz" {
   stor-log-repo-sas = "${module.logging.hub-corpc-sto-acc-log-sas-url-string}"
   stor-log-ws-crd-1 = "${module.logging.hub-corpc-log-ana-rep-primary-workspace-id}"
   stor-log-ws-crd-2 = "${module.logging.hub-corpc-log-ana-rep-primary-key}"  
-  waf_depend_on = [module.subnet-nsg-privatedmzoutlan]
+  waf_depend_on = [module.subnet-nsg-privatedmzoutlan,module.subnet-nsg-publicdmzin]
   tags-waf-public-dmz-module = {
     environment = "production"
     scope_1="shared_infrastructure"
