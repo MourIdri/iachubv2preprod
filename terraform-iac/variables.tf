@@ -120,11 +120,14 @@ variable "subnet-publicdmzin" {
   description = "root name for mgmt windows  "
   type = any
 }
-variable "nsg-publicdmzin" {
+variable "nsg-publicdmzin-1" {
   description = "root name for mgmt windows  "
   type = any
 }
-
+variable "nsg-publicdmzin-2" {
+  description = "root name for mgmt windows  "
+  type = any
+}
 
 
 
