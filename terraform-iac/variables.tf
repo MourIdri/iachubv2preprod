@@ -128,6 +128,10 @@ variable "nsg-publicdmzin-2" {
   description = "root name for mgmt windows  "
   type = any
 }
+variable "waf-vm-private-public-ip-address" {
+  description = "root name for mgmt windows  "
+  type = any
+}
 
 variable "GatewaySubnet-root-name" {
   description = "root name for mgmt windows  "

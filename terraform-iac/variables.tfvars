@@ -37,4 +37,4 @@ nsg-GatewaySubnet-3 = "__nsg-GatewaySubnet-3__"
 nsg-GatewaySubnet-4 = "__nsg-GatewaySubnet-4__"
 iprange-onprem-vpn = "__iprange-onprem-vpn__"
 ipaddress-routeur-onprem-1-azuredevops = "__ipaddress-routeur-onprem-1-azuredevops__"
-
+waf-vm-private-public-ip-address = "__waf-vm-private-public-ip-address__"
