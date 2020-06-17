@@ -166,12 +166,6 @@ variable "ipaddress-routeur-onprem-1-azuredevops" {
 }
 
 
-
-
-
-
-
-
 #LOGIN PASSWORDS
 variable "genericusername" {
   description = "Username for Virtual Machines"
