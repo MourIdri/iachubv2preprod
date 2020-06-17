@@ -248,6 +248,34 @@ module "subnet-nsg-publicdmzin" {
   portrange-subnet-module =  ["${var.nsg-publicdmzin-1}","${var.nsg-publicdmzin-2}"]
   subnet_depend_on_module = [module.network]
 }
+module "waf-public-dmz" {
+  current-name-convention-core-public-module = "${var.current-name-convention-core-public-main}"
+  current-name-convention-core-module  = "${var.current-name-convention-core-main}"
+  preferred-location-module = "${var.preferred-location-main}"  
+  source               = "./modules/waf-lnx"
+  subnet_in_id_module = "${module.subnet-nsg-publicdmzin.subnet-iac-id}"
+  ip-in-waf-module = "10.255.254.68"
+  waf-size ="${var.vmsize_small_1_2}"
+  waf-login = "${var.genericusername}"
+  waf-passwd = "${var.genericpassword}"
+  stor-log-repo = "${module.logging.hub-corpc-sto-acc-log-endpoint}"
+  stor-log-repo-name = "${module.logging.hub-corpc-sto-acc-log-name}"
+  stor-log-repo-sas = "${module.logging.hub-corpc-sto-acc-log-sas-url-string}"
+  stor-log-ws-crd-1 = "${module.logging.hub-corpc-log-ana-rep-primary-workspace-id}"
+  stor-log-ws-crd-2 = "${module.logging.hub-corpc-log-ana-rep-primary-key}"  
+  waf_depend_on = [module.subnet-nsg-publicdmzin]
+  tags-waf-public-dmz-module = {
+    environment = "production"
+    scope_1="shared_infrastructure"
+    scope_2="core_infrastructure"
+    type_1="network_security"
+    type_2="waf"
+    lob="it_infrastructure"
+    business_location="corpc"
+    projectowner="it_transverse_cloud_team"
+  }
+}
+
 
 
 
