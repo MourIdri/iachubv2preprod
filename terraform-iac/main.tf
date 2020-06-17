@@ -254,7 +254,6 @@ module "waf-public-dmz" {
   preferred-location-module = "${var.preferred-location-main}"  
   source               = "./modules/waf-lnx"
   subnet_in_id_module = "${module.subnet-nsg-publicdmzin.subnet-iac-id}"
-  #ip-in-waf-module = "10.255.254.68"
   ip-in-waf-module = "${var.waf-vm-private-ip-address}" 
   waf-size ="${var.vmsize_small_1_2}"
   waf-login = "${var.current-vm-default-username-main}"
