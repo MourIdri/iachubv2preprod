@@ -249,6 +249,9 @@ module "subnet-nsg-publicdmzin" {
   subnet_depend_on_module = [module.network]
 }
 
+
+
+
 #VPN PART 
 #VPN PART 
 module "subnet-nsg-vpn" {
