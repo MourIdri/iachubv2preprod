@@ -177,7 +177,7 @@ module "subnet-nsg-mt" {
   iprange-subnet-module = "${var.subnet-mt}"  
   #iprange-subnet-module = "10.255.255.16/28"
   #portrange-subnet-module =  ["3389","443","22"]
-  portrange-subnet-module =  "${var.nsg-mt}" 
+  portrange-subnet-module =  ${var.nsg-mt}
   subnet_depend_on_module = [module.network]
 }
 module "mt-area-1" {
@@ -245,6 +245,6 @@ module "subnet-nsg-publicdmzin" {
   #iprange-subnet-module = "10.255.255.64/28"
   iprange-subnet-module = "${var.subnet-publicdmzin}"  
   #portrange-subnet-module =  ["443","80"]
-  portrange-subnet-module =  "${var.nsg-publicdmzin}"
+  portrange-subnet-module =  ${var.nsg-publicdmzin}
   subnet_depend_on_module = [module.network]
 }
