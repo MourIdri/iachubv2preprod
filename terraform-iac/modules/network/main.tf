@@ -22,10 +22,6 @@ resource "azurerm_virtual_network" "hub-corpc-vnet" {
 #            name           = "${var.current-name-convention-core-module}-subnet-privatedmzoutlan"
 #            address_prefix = "${var.subnet-private-dmz-out-lan-ip-range-module}"
 #            } 
-#        subnet {
-#            name           = "${var.current-name-convention-core-module}-subnet-publicdmzin"
-#            address_prefix = "${var.subnet-public-dmz-in-ip-range-module}"
-#            } 
 }
 
 
