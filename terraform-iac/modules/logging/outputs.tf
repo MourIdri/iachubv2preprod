@@ -28,3 +28,6 @@ output "hub-corpc-ev-hb-1-pri-conx-string" {
 output "hub-corpc-ev-hb-1-pri-conx-key" {
   value = "${azurerm_eventhub_authorization_rule.hub-corpc-ev-hb-1-rule-1.primary_key}"
 }
+output "hub-corpc-current-key-vault-id" {
+  value = "${azurerm_key_vault.current_key_vault.id}"
+}
