@@ -12,6 +12,12 @@ output "current_object_id" {
   value = data.azurerm_client_config.current.object_id
 }
 
+
+data "azurerm_resource_group" "cc-pp-hb-rg" {
+  #name                = "${var.current-name-convention-core-main}-subnet-${var.spoke-storage-root-name}"
+  name                = "cc-pp-hb-rg"
+}
+
 module "rg" {
   source               = "./modules/rg"
   current-name-convention-core-module  = "${var.current-name-convention-core-main}"
