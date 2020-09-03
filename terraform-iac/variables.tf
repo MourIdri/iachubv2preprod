@@ -41,6 +41,13 @@ variable "current-name-convention-core-public-main" {
   description = "Every PUBLIC accesed and resolved ressources has a core model crcprdshrhubstolog "
   type = any
 }
+
+variable "tf_storage_account_key" {
+  description = "__tf_storage_account_key__ "
+  type = any
+}
+
+
 ############################
 # GENERAL NETWRK VARIABLES #
 ############################
