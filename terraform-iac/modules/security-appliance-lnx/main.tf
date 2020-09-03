@@ -1,3 +1,12 @@
+resource "azurerm_public_ip" "nva1-nic-private-dmz-in-puip" {
+    depends_on = [var.mtl_depend_on]
+    name                         = "${var.current-name-convention-core-module}-nva1-ub16-nicinpuip"
+    location                     = "${var.preferred-location-module}" 
+    resource_group_name          = "${var.current-name-convention-core-module}-rg"
+    domain_name_label            = "${var.current-name-convention-core-public-module}nva1"
+    allocation_method            = "Static"
+    tags = "${var.tags-mtl-lnx-module}"
+}
 resource "azurerm_network_interface" "nva1-nic-private-dmz-in" {
   depends_on = [var.security_appliance_depend_on]
   name                 = "${var.current-name-convention-core-module}-nva1-ub16-nicin"
@@ -9,6 +18,7 @@ resource "azurerm_network_interface" "nva1-nic-private-dmz-in" {
     subnet_id                     = "${var.subnet_in_id_module}" 
     private_ip_address_allocation = "Static"
     private_ip_address            = "${var.ip-in-nva-module}" 
+    public_ip_address_id          = "${azurerm_public_ip.nva1-nic-private-dmz-in-puip.id}"
   }
   tags = "${var.tags-security-appliance-dmz-module}"
 }
